@@ -1,19 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from 'src/components/app/app.component';
-import { HeaderComponent } from 'src/components//header/header.component';
-import { ProductsComponent } from 'src/components//products/products.component';
-import {HttpClientModule} from '@angular/common/http';
+import { AppComponent } from '../app/app.component';
+import { HeaderComponent } from '../header/header.component';
+import { ProductsComponent } from '../products/products.component';
+import { ProductAddComponent } from '../product-add/product-add.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductAddComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
