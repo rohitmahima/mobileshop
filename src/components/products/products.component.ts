@@ -1,6 +1,6 @@
+import { ProductService } from './../../Services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/models/product.model';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-products',
@@ -11,15 +11,18 @@ export class ProductsComponent implements OnInit {
 
   productList: ProductModel[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private productService: ProductService) {
     this.getProducts();
+    this.productService.GetUpdatedProducts.subscribe(x => {
+      this.getProducts();
+    });
   }
 
   ngOnInit(): void {
   }
 
   private getProducts() {
-    this.http.get<{ [key: string]: ProductModel }>('https://onlinemobileshop-d12cd.firebaseio.com/Products.json')
+    this.productService.GetProducts()
       .pipe(
         map(responceData => {
           const productArray: ProductModel[] = [];

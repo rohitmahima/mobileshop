@@ -8,6 +8,7 @@ import { AppComponent } from '../app/app.component';
 import { HeaderComponent } from '../header/header.component';
 import { ProductsComponent } from '../products/products.component';
 import { ProductAddComponent } from '../product-add/product-add.component';
+import { ProductService } from './../../Services/product.service';
 
 const appRoutes: Routes = [
   { path: '', component: ProductsComponent },
@@ -27,7 +28,9 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
