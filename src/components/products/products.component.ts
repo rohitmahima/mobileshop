@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/models/product';
+import { ProductModel } from 'src/models/product.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 @Component({
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProductsComponent implements OnInit {
 
-  productList: Product[] = [];
+  productList: ProductModel[] = [];
 
   constructor(private http: HttpClient) {
     this.getProducts();
@@ -19,10 +19,10 @@ export class ProductsComponent implements OnInit {
   }
 
   private getProducts() {
-    this.http.get<{ [key: string]: Product }>('https://onlinemobileshop-d12cd.firebaseio.com/Products.json')
+    this.http.get<{ [key: string]: ProductModel }>('https://onlinemobileshop-d12cd.firebaseio.com/Products.json')
       .pipe(
         map(responceData => {
-          const productArray: Product[] = [];
+          const productArray: ProductModel[] = [];
           for (const key in responceData) {
             if (responceData.hasOwnProperty(key)) {
               productArray.push({ ...responceData[key], id: key });
