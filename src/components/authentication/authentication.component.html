@@ -1,0 +1,98 @@
+<div class="container">
+    <div class="row" *ngIf="error">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="alert alert-danger">
+                <p>{{error}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 border-black border">
+
+                <div class="display-4 text-center">{{isLogin ? 'Sign In' : 'Sign Up'}}</div>
+                <hr>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Email Address"
+                        formControlName="email" [ngClass]="{'is-invalid':loginForm.get('email').touched && loginForm.get('email').invalid ,
+                        'is-valid':loginForm.get('email').touched && loginForm.get('email').valid}">
+
+                    <div class="help-block" *ngIf="loginForm.get('email').errors">
+                        <p *ngIf="loginForm.get('email').errors.required && loginForm.get('email').touched && loginForm.get('email').invalid"
+                            class="text-danger">
+                            Email is required.</p>
+
+                        <p *ngIf="loginForm.get('email').errors.email && loginForm.get('email').touched && loginForm.get('email').invalid"
+                            class="text-danger">
+                            Please enter a valid email address.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Password"
+                        formControlName="password" [ngClass]="{'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid ,
+                        'is-valid':loginForm.get('password').touched && loginForm.get('password').valid}"
+                        title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.">
+
+                    <div class="help-block" *ngIf="loginForm.get('password').errors">
+                        <p *ngIf="loginForm.get('password').errors.required && loginForm.get('password').touched && loginForm.get('password').invalid"
+                            class="text-danger">
+                            Password is required.</p>
+
+                        <p *ngIf="loginForm.get('password').errors.pattern && loginForm.get('password').touched && loginForm.get('password').invalid"
+                            class="text-danger">
+                            Please enter a valid password.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="!isLogin">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
+                        formControlName="confirmPassword" [ngClass]="{'is-invalid':loginForm.get('confirmPassword').touched && loginForm.get('confirmPassword').invalid ,
+                        'is-valid':loginForm.get('confirmPassword').touched && loginForm.get('confirmPassword').valid}"
+                        title="Confirm-Password must match with Password." value="Ashutosh123#">
+
+                    <div class="help-block" *ngIf="loginForm.get('confirmPassword').errors">
+                        <p *ngIf="loginForm.get('confirmPassword').errors.required && loginForm.get('confirmPassword').touched"
+                            class="text-danger">
+                            Confirm Password is required.</p>
+
+                        <p *ngIf="loginForm.get('confirmPassword').errors.confirmPasswordNotMatch && loginForm.get('confirmPassword').touched && loginForm.get('confirmPassword').value !== ''"
+                            class="text-danger">
+                            Confirm Password is not match with Password.</p>
+
+                        <p *ngIf="loginForm.get('confirmPassword').errors.pattern && loginForm.get('confirmPassword').touched && !loginForm.get('confirmPassword').errors.confirmPasswordNotMatch"
+                            class="text-danger">
+                            Please enter a valid password.</p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button *ngIf="isLogin" class="btn btn-success btn-block rounded-pill" type="submit">Login</button>
+
+                    <button *ngIf="!isLogin" class="btn btn-success btn-block rounded-pill" type="submit"
+                        [disabled]="loginForm.invalid">Register</button>
+                </div>
+                <div class="mb-3">
+                    <div *ngIf="isLogin">
+                        Don't have an account?
+                        <a class="text-danger" (click)="onToggleButton()">Sign Up</a>
+                    </div>
+
+                    <div *ngIf="!isLogin">
+                        Already have an account?
+                        <a class="text-danger" (click)="onToggleButton()">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
