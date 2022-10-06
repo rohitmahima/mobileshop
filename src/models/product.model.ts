@@ -6,4 +6,5 @@ export class ProductModel{
     stock: number;
     description: string;
     imgUrl: string;
+    reward: string;
 }
